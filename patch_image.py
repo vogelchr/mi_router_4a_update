@@ -53,22 +53,22 @@ for match in bootlog_re.findall(bootlog):
                         f'-s{partlen}', f'-o{part_new_fn}', asc_fn])
 
     if partname == 'OS1':
-        kern_fn = 'openwrt-ramips-mt7621-xiaomi_mir3g-squashfs-kernel1.bin'
+        kern_fn = 'openwrt-ramips-mt7621-xiaomi_mir3g-v2-initramfs-kernel.bin'
         kern_data = open(kern_fn, 'rb').read()
         kern_len = len(kern_data)
         print(f'*** Read {kern_len} bytes from {kern_fn}.')
 
         img[startix:startix+kern_len] = kern_data
 
-        skip_offs = (startix + kern_len + 0xffff) & ~0xffff
-        print(f'*** Skipping to offset 0x{skip_offs:x}')
+#       skip_offs = (startix + kern_len + 0xffff) & ~0xffff
+#        print(f'*** Skipping to offset 0x{skip_offs:x}')
 
-        rootfs_fn = 'openwrt-ramips-mt7621-xiaomi_mir3g-squashfs-rootfs0.bin'
-        rootfs_data = open(rootfs_fn, 'rb').read()
-        rootfs_len = len(rootfs_data)
-        print(f'*** Read {rootfs_len} bytes from {rootfs_fn}.')
+#        rootfs_fn = '...'
+#        rootfs_data = open(rootfs_fn, 'rb').read()
+#        rootfs_len = len(rootfs_data)
+#        print(f'*** Read {rootfs_len} bytes from {rootfs_fn}.')
 
-        img[skip_offs:skip_offs+rootfs_len] = rootfs_data
+#        img[skip_offs:skip_offs+rootfs_len] = rootfs_data
 
     if os.path.exists(part_new_fn):
         data_new = open(part_new_fn, 'rb').read()
